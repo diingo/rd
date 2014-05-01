@@ -1,0 +1,12 @@
+<h1>Game#new</h1>
+<p>Find me in app/views/game/new.html.erb</p>
+
+<%= form_tag("/games", method: "post") do %>
+  <%= label_tag('players', "Players:") %><br>
+  <%= text_field_tag('players[]') %><br>
+  <%= text_field_tag('players[]') %><br>
+  <%= text_field_tag('players[]') %><br>
+  <%= text_field_tag('players[]') %><br>
+
+  <%= submit_tag("submit") %>
+<% end %>

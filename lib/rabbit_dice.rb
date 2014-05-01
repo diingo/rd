@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'pry-debugger'
 
 require_relative 'rabbit_dice/databases/in_memory.rb'
 

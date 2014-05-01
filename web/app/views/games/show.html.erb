@@ -1,0 +1,51 @@
+<% if flash[:success] %>
+<%= flash[:success] %>
+<% end %>
+
+<% if flash[:error] %>
+<%= flash[:error] %>
+<% end %>
+
+<% if @game.winner%>
+<p>The winner is: <%= @game.winner %></p>
+<% end %>
+<h2> Players: </h2>
+<% @game.players.each do |player| %>
+<ul>
+<li><%= player %></li>
+<li><%= @game.score_for(player) %></li>
+  <li><% player_turns = @game.turns.select { |turn| turn.player == player } %>
+
+  <% player_turns.each do |turn| %>
+    <% turn.rolls.each do |roll| %>
+      <% roll.results.each do |die| %>
+        <%= die.type %> <%= die.color %>,
+      <% end %>
+    <% end %>
+  <% end %>
+  </li>
+</ul>
+<% end %>
+
+<p> <%= @game.current_player %> is playing. Make your move: </p>
+
+
+
+<%= form_tag("/games/#{@game.id}", method: "put") do %>
+  <%= hidden_field_tag("move", 'roll_dice') %>
+  <%= submit_tag("Roll Dice") %>
+<% end %>
+
+<%= form_tag("/games/#{@game.id}", method: "put") do %>
+  <%= hidden_field_tag("move", 'stop') %>
+  <%= submit_tag("Stop") %>
+<% end %>
+
+<h3><%= @game.current_player %> last rolled: </h3>
+<ul>
+<% @current_turn_rolls.each do |roll| %>
+  <% roll.results.each do |die| %>
+    <li><%= die.type %> <%= die.color %></li>
+  <% end %>
+<% end %>
+</ul>
